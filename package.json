@@ -2,8 +2,8 @@
   "name": "@mpan-wework/react-store",
   "version": "0.1.0",
   "description": "React Store",
-  "main": "dist/index.cjs.js",
-  "module": "dist/index.esm.js",
+  "main": "dist/index.js",
+  "module": "dist/index.js",
   "files": [
     "dist",
     "src"
