@@ -1,0 +1,48 @@
+{
+  "name": "@mpan-wework/react-store",
+  "version": "0.1.0",
+  "description": "React Store",
+  "main": "dist/index.cjs.js",
+  "module": "dist/index.esm.js",
+  "files": [
+    "dist",
+    "src"
+  ],
+  "scripts": {
+    "prebuild": "rm -rf dist",
+    "build": "tsc",
+    "lint": "eslint src --ext .ts"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mpan-wework/react-store.git",
+    "directory": ""
+  },
+  "keywords": [
+    "react"
+  ],
+  "author": {
+    "name": "Mike Pan",
+    "email": "mike.pan@wework.com",
+    "url": "https://github.com/mpan-wework"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/mpan-wework/react-store/issues"
+  },
+  "homepage": "https://github.com/mpan-wework/react-store#readme",
+  "peerDependencies": {
+    "react": "^16.13.0"
+  },
+  "devDependencies": {
+    "@types/react": "^16.9.23",
+    "@typescript-eslint/eslint-plugin": "^2.22.0",
+    "@typescript-eslint/parser": "^2.22.0",
+    "@typescript-eslint/typescript-estree": "^2.22.0",
+    "eslint": "^6.8.0",
+    "prettier": "^1.19.1",
+    "react": "^16.13.0",
+    "tslib": "^1.11.1",
+    "typescript": "^3.8.3"
+  }
+}
