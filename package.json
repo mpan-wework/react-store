@@ -32,7 +32,7 @@
   },
   "homepage": "https://github.com/mpan-wework/react-store#readme",
   "peerDependencies": {
-    "react": "^16.13.0"
+    "react": ">=16.10.0"
   },
   "devDependencies": {
     "@types/react": "^16.9.23",
