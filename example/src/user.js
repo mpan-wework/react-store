@@ -2,7 +2,7 @@ export default {
   state: {
     name: '',
   },
-  storeActions: {
+  verbs: {
     fetchUser: async ({ commit }, payload) => {
       const { url } = payload;
       const resp = await fetch(url);
