@@ -28,21 +28,21 @@ type StoreCommit = ReducerDispatch;
 
 type StoreDispatch = (reducerAction: ReducerAction) => Promise<any>;
 
-type StoreContext = {
+type StoreVerbContext = {
   state: ReducerState;
   rootState: StoreState;
   commit: StoreCommit;
 };
 
-type StoreAction = (context: StoreContext, payload: Payload) => Promise<any>;
+type StoreVerb = (context: StoreVerbContext, payload: Payload) => Promise<any>;
 
-type StoreActions = {
-  [key: string]: StoreAction;
+type StoreVerbs = {
+  [key: string]: StoreVerb;
 };
 
 type StoreModule = {
   state: StoreState;
-  storeActions?: StoreActions;
+  verbs?: StoreVerbs;
   reducer?: Reducer;
 };
 
@@ -51,13 +51,21 @@ type StoreModules = {
 };
 /* Store Types End */
 
-type StoreProviderProps = {
-  children: Array<React.ReactNode>;
+type Store = {
+  state: StoreState;
+  dispatch: StoreDispatch;
+  commit: StoreCommit;
 };
 
+type StoreContext = React.Context<{ state: StoreState}>;
+
+type StoreProviderProps = React.ProviderProps<Store>;
+
+type StoreProvider = React.FunctionComponent<StoreProviderProps>;
+
 type ExportType = {
-  StoreProvider: React.FunctionComponent;
-  useStore: any;
+  StoreProvider: StoreProvider;
+  useStore: () => Store;
 };
 
 /* ================================================================ */
@@ -108,7 +116,7 @@ const createStore = (storeModules: StoreModules = {}, debug = false): ExportType
 
       const [storeModule, storeActionName] = type.split('/');
       const moduleStoreAction =
-        storeModules[storeModule]?.storeActions?.[storeActionName];
+        storeModules[storeModule]?.verbs?.[storeActionName];
       if (!moduleStoreAction) {
         console.error(storeAction);
         return null;
@@ -131,15 +139,15 @@ const createStore = (storeModules: StoreModules = {}, debug = false): ExportType
     return storeDispatch;
   };
 
-  const _StoreContext = createContext({
+  const _StoreContext: StoreContext = createContext({
     state: _initialState,
    });
 
-  const StoreProvider: React.FunctionComponent = (props: StoreProviderProps) => {
-    const { children } = props;
+  const StoreProvider: StoreProvider = (props: any) => {
+    const children: Array<React.ReactNode> = props.children;
     const [state, dispatch] = useReducer<Reducer>(_reducer, _initialState);
 
-    const storeProps = {
+    const storeProps: StoreProviderProps = {
       value: {
         state,
         dispatch: _storeWrap(state, dispatch),
@@ -154,7 +162,7 @@ const createStore = (storeModules: StoreModules = {}, debug = false): ExportType
     );
   }
 
-  const useStore = (): any => useContext(_StoreContext);
+  const useStore = (): Store => useContext(_StoreContext) as Store;
 
   return { StoreProvider, useStore };
 };
