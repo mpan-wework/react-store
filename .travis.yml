@@ -1,0 +1,26 @@
+sudo: required
+services:
+  - docker
+
+language: node_js
+node_js:
+  - 10.17
+
+dist: trusty
+addons:
+  chrome: stable
+  firefox: latest
+env:
+  - MOZ_HEADLESS=1
+cache:
+  directories:
+    - node_modules
+    - example/node_modules
+
+install:
+- cd ${TRAVIS_BUILD_DIR} && npm i
+- cd ${TRAVIS_BUILD_DIR}/example && npm i
+
+script:
+- cd ${TRAVIS_BUILD_DIR} && npm run lint && npm run build && ls dist
+- cd ${TRAVIS_BUILD_DIR}/example && npm run build && ls dist

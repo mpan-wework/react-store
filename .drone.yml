@@ -1,0 +1,38 @@
+kind: pipeline
+name: default
+
+steps:
+- name: ESLint
+  image: node
+  commands:
+  - npm install
+  - npm run lint
+  - npm run build
+  - ls dist
+  when:
+    branch:
+      include:
+        - '*'
+      exclude:
+        - github-pages
+- name: Example
+  image: node
+  commands:
+  - cd example
+  - npm install
+  - npm run build
+  - ls dist
+  when:
+    branch:
+      include:
+        - '*'
+      exclude:
+        - github-pages
+    event:
+      include:
+        - push
+        - pull_request
+        - tag
+      exclude:
+        - promote
+        - rollback
