@@ -1,4 +1,10 @@
-import { createContext, createElement, useContext, useReducer } from 'react';
+import {
+  createContext,
+  createElement,
+  useContext,
+  useReducer,
+  useCallback,
+} from 'react';
 
 /* Reducer Types Start */
 type ReducerState = {
@@ -147,10 +153,12 @@ const createStore = (storeModules: StoreModules = {}, debug = false): ExportType
     const children: Array<React.ReactNode> = props.children;
     const [state, dispatch] = useReducer<Reducer>(_reducer, _initialState);
 
+    const storeDispatch = useCallback(_storeWrap(state, dispatch), [state]);
+
     const storeProps: StoreProviderProps = {
       value: {
         state,
-        dispatch: _storeWrap(state, dispatch),
+        dispatch: storeDispatch,
         commit: dispatch,
       },
     };
