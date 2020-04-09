@@ -10,9 +10,19 @@
   ],
   "parser": "@typescript-eslint/parser",
   "plugins": [
-    "@typescript-eslint"
+    "@typescript-eslint",
+    "prettier"
   ],
   "rules": {
-    "@typescript-eslint/no-explicit-any": ["off"]
+    "@typescript-eslint/no-explicit-any": ["off"],
+    "prettier/prettier": [
+      "warn",
+      {
+        "semi": true,
+        "singleQuote": true,
+        "trailingComma": "es5",
+        "arrowParens": "always"
+      }
+    ]
   }
 }

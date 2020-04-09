@@ -1,18 +1,23 @@
 {
   "compilerOptions": {
+    "allowSyntheticDefaultImports": true,
     "declaration": true,
+    "declarationDir": "dist/tsc/types",
     "jsx": "react",
+    "module": "esnext",
     "moduleResolution": "node",
-    "outDir": "dist",
+    "noImplicitAny": false,
+    "outDir": "dist/tsc",
     "sourceMap": true,
-    "target": "ES2015",
-    "noImplicitAny": false
+    "strict": true,
+    "target": "ES2015"
   },
   "include": [
-    "src"
+    "src/**/*"
   ],
   "exclude": [
     "node_modules",
-    "dist"
+    "dist",
+    "src/__tests__/*.tsx"
   ]
 }
